@@ -13,6 +13,38 @@
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+## Node 24 derivative
+
+This derivative starts from the complete Git history of
+[DatatracCorporation/restify-cors-middleware](https://github.com/DatatracCorporation/restify-cors-middleware),
+at npm version `2.2.1`'s recorded source commit
+`0b19d7f3c6cd31db0d071766417d589292fd6d2a`.
+The original author (Datatrac Corporation), MIT license declaration and upstream
+documentation are retained. The source commit has no standalone license file.
+
+The derivative version is `2.2.1-node24.0`, for Node `24.x` and exactly
+Restify `12.0.0`. The peer range is deliberately limited to the tested version;
+it does not claim compatibility with other Restify releases. Runtime files in
+`src/` are unchanged from that source commit. No allowlist, credential or
+preflight policy has been relaxed.
+
+On Node 24.19.0 / Restify 12.0.0, `npm test -- --reporter dot` passes
+51 tests, including 24 credentialed API HTTP cases, with two inherited pending
+tests. The existing tooling emits a `util.isArray` deprecation warning.
+These are local middleware checks, not application session/CSRF or end-to-end
+verification. The original case-sensitive configured/default header list is
+preserved, including `Content-Type` alongside `content-type`.
+
+The same suite can exercise an installed artifact by setting `CORS_COMPAT_MODULE`
+to its absolute package directory. This only changes the test fixture's import;
+production middleware does not read that variable.
+
+This derivative is distributed from
+[vparaskevas/restify-cors-middleware2-node24](https://github.com/vparaskevas/restify-cors-middleware2-node24),
+not as a new npm release. Consumers must pin its verified published full commit
+SHA. The upstream npm setup instructions below do not install the Node 24
+derivative; upstream `2.2.1` still excludes Restify 12 from its peer contract.
+
 ## Setup
 ```sh
 $ npm install restify-cors-middleware2 --save

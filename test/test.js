@@ -1,5 +1,5 @@
 var restify = require('restify')
-var cors = require('../src/index')
+var cors = require(process.env.CORS_COMPAT_MODULE || '../src/index')
 
 exports.corsServer = function (corsConfig) {
   var middleware = cors(corsConfig)
